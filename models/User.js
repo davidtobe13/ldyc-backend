@@ -84,10 +84,10 @@ const UserSchema = new mongoose.Schema({
   },
   
   // Payment details
-  // paymentRef: {
-  //   type: String,
-  //   sparse: true
-  // },
+  paymentRef: {
+    type: String,
+    sparse: true
+  },
   paymentStatus: {
     type: String,
     enum: ['pending', 'paid', 'failed'],

@@ -12,7 +12,7 @@ exports.registrationValidation = Joi.object({
   password: Joi.string().min(6).required(),
   archdeaconry: Joi.string().required(),
   parish: Joi.string().required(),
-  // paymentRef: Joi.string().required()
+  paymentRef: Joi.string().required()
 });
 
 exports.loginValidation = Joi.object({

@@ -56,7 +56,7 @@ exports.registerParticipant = async (req, res) => {
       email,
       phoneNumber,
       password,
-      // paymentRef // From Paystack
+      paymentRef // From Paystack
     } = req.body;
 
     // Check if user already exists
@@ -96,7 +96,7 @@ exports.registerParticipant = async (req, res) => {
       qrCode,
       isVerified: false,
       status: "registered", // Initial status (registered, passed, stopped)
-      // paymentRef,
+      paymentRef,
       paymentStatus: "paid"
     });
 
