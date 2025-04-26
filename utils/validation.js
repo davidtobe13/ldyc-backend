@@ -3,7 +3,7 @@ const Joi = require('joi');
 
 exports.registrationValidation = Joi.object({
   userType: Joi.string().valid('camper', 'chaplain').required(),
-  title: Joi.string().valid('Mr', 'Mrs', 'Miss', 'Dr', 'Rev', 'Prof', 'Canon').required(),
+  title: Joi.string().valid('Mr', 'Mrs', 'Miss', 'Dr', 'Rev', 'Prof', 'Canon', 'Ven').required(),
   firstName: Joi.string().required(),
   surname: Joi.string().required(),
   otherName: Joi.string().allow(''),

@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, 'Password is required'],
+    required: function() { return this.userType === 'admin'; },
     select: false
   },
   
@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
   // Personal details
   title: {
     type: String,
-    enum: ['Mr', 'Mrs', 'Miss', 'Dr', 'Rev', 'Prof', 'Canon'],
+    enum: ['Mr', 'Mrs', 'Miss', 'Dr', 'Rev', 'Prof', 'Canon', 'Ven'],
     required: function() { return this.userType !== 'admin'; }
   },
   firstName: {
@@ -57,6 +57,10 @@ const UserSchema = new mongoose.Schema({
     required: function() { return this.userType !== 'admin'; }
   },
   parish: {
+    type: String,
+    required: function() { return this.userType !== 'admin'; }
+  },
+  dob: {
     type: String,
     required: function() { return this.userType !== 'admin'; }
   },

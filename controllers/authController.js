@@ -50,6 +50,7 @@ exports.registerParticipant = async (req, res) => {
       archdeaconry,
       parish,
       title,
+      dob,
       surname,
       firstName,
       otherName,
@@ -69,10 +70,10 @@ exports.registerParticipant = async (req, res) => {
       });
     }
     // Verify payment with Paystack
-    // const paymentVerified = await verifyPaystackPayment(paymentRef);
-    // if (!paymentVerified) {
-    //   return res.status(400).json({ message: "Payment verification failed" });
-    // }
+    const paymentVerified = await verifyPaystackPayment(paymentRef);
+    if (!paymentVerified) {
+      return res.status(400).json({ message: "Payment verification failed" });
+    }
 
     // Generate registration code
     const registrationCode = await generateRegistrationCode(userType, archdeaconry);
@@ -85,6 +86,7 @@ exports.registerParticipant = async (req, res) => {
       userType,
       archdeaconry,
       parish,
+      dob,
       title,
       surname,
       firstName,
