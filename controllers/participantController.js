@@ -4,6 +4,7 @@ const User = require('../models/User');
 // @desc    Get all participants
 // @route   GET /api/participants
 // @access  Private (Admin only)
+
 exports.getParticipants = async (req, res) => {
   try {
     const { userType, archdeaconry, status, page = 1, limit = 10 } = req.query;
