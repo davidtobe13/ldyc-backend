@@ -70,10 +70,23 @@ exports.registerParticipant = async (req, res) => {
 
 
     // Verify payment with Paystack
-    const paymentVerified = await verifyPaystackPayment(paymentRef);
-    if (!paymentVerified) {
-      return res.status(400).json({ message: "Payment verification failed" });
-    }
+    // const paymentVerified = await verifyPaystackPayment(paymentRef);
+    // if (!paymentVerified) {
+    //   return res.status(400).json({ message: "Payment verification failed" });
+    // }
+
+
+    const isTestMode = process.env.NODE_ENV !== 'production';
+
+let paymentVerified = true;
+
+if (!isTestMode) {
+  paymentVerified = await verifyPaystackPayment(paymentRef);
+}
+
+if (!paymentVerified) {
+  return res.status(400).json({ message: "Payment verification failed" });
+}
 
 
 
