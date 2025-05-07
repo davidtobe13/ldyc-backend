@@ -1,5 +1,7 @@
 // utils/registration.js
+
 const QRCode = require('qrcode');
+const cloudinary = require('./cloudinary');
 const User = require('../models/User');
 
 // Generate unique registration code
@@ -30,13 +32,41 @@ exports.generateRegistrationCode = async (userType, archdeaconry) => {
 };
 
 // Generate QR code from registration code
-exports.generateQRCode = async (registrationCode) => {
+// exports.generateQRCode = async (registrationCode) => {
+//   try {
+//     // Generate QR code as data URL
+//     const qrDataUrl = await QRCode.toDataURL(registrationCode);
+//     return qrDataUrl;
+//   } catch (error) {
+//     console.error('QR code generation error:', error);
+//     throw new Error('Failed to generate QR code');
+//   }
+// };
+
+
+
+
+exports.generateQRCode = async (userData) => {
   try {
-    // Generate QR code as data URL
-    const qrDataUrl = await QRCode.toDataURL(registrationCode);
-    return qrDataUrl;
+    // Omit password before encoding
+    const { password, ...safeData } = userData;
+
+    // Create a stringified version of the user data for QR
+    const qrText = JSON.stringify(safeData);
+
+    // Generate QR Code as Data URL
+    const qrDataUrl = await QRCode.toDataURL(qrText);
+
+    // Upload to Cloudinary
+    const uploadResult = await cloudinary.uploader.upload(qrDataUrl, {
+      folder: 'camp/qr-codes',
+      public_id: safeData.registrationCode,
+      overwrite: true,
+    });
+
+    return uploadResult.secure_url;
   } catch (error) {
-    console.error('QR code generation error:', error);
-    throw new Error('Failed to generate QR code');
+    console.error('QR code generation/upload error:', error);
+    throw new Error('Failed to generate and upload QR code');
   }
 };

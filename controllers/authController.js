@@ -67,18 +67,37 @@ exports.registerParticipant = async (req, res) => {
         message: "User with this email is already registered",
       });
     }
+
+
     // Verify payment with Paystack
     const paymentVerified = await verifyPaystackPayment(paymentRef);
     if (!paymentVerified) {
       return res.status(400).json({ message: "Payment verification failed" });
     }
 
+
+
     // Generate registration code
     const registrationCode = await generateRegistrationCode(userType, archdeaconry);
     
     // Generate QR code
-    const qrCode = await generateQRCode(registrationCode);
+    // const qrCode = await generateQRCode(registrationCode);
 
+    const qrCodeUrl = await generateQRCode({
+      userType,
+      archdeaconry,
+      parish,
+      title,
+      dob,
+      surname,
+      firstName,
+      otherName,
+      email,
+      phoneNumber,
+      registrationCode,
+    });
+
+    
     // Create new participant
     const newParticipant = new User({
       userType,
@@ -93,17 +112,22 @@ exports.registerParticipant = async (req, res) => {
       phoneNumber,
       password,
       registrationCode,
-      qrCode,
+      qrCode: qrCodeUrl,
       isVerified: false,
       status: "registered", // Initial status (registered, passed, stopped)
       paymentRef,
       paymentStatus: "paid"
     });
 
-    if (req.file) {
-      // Store photo path or processed photo
-      newParticipant.photoUrl = req.file.path;
+    // if (req.file) {
+    //   // Store photo path or processed photo
+    //   newParticipant.photoUrl = req.file.path;
+    // }
+
+    if (req.file && req.file.path) {
+      newParticipant.photoUrl = req.file.path; // This will be the Cloudinary URL
     }
+    
 
     await newParticipant.save();
 

@@ -48,7 +48,6 @@ const UserSchema = new mongoose.Schema({
   phoneNumber: {
     type: String,
     required: function() { return this.userType !== 'admin'; },
-    unique: true
   },
   
   // Church details
