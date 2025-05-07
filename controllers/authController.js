@@ -61,12 +61,10 @@ exports.registerParticipant = async (req, res) => {
     } = req.body;
 
     // Check if user already exists
-    const existingUser = await User.findOne({
-      $or: [{ email }, { phoneNumber }],
-    });
+    const existingUser = await User.findOne({email});
     if (existingUser) {
       return res.status(400).json({
-        message: "User with this email or phone number already exists",
+        message: "User with this email is already registered",
       });
     }
     // Verify payment with Paystack
@@ -122,8 +120,6 @@ exports.registerParticipant = async (req, res) => {
 
     res.status(201).json({
       message: "Registration successful",
-      registrationCode,
-      // idCardUrl,
       newParticipant
     });
 
