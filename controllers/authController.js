@@ -56,7 +56,7 @@ exports.registerParticipant = async (req, res) => {
       otherName,
       email,
       phoneNumber,
-      password,
+      // password,
       paymentRef // From Paystack
     } = req.body;
 
@@ -123,7 +123,7 @@ if (!paymentVerified) {
       otherName,
       email,
       phoneNumber,
-      password,
+      // password,
       registrationCode,
       qrCode: qrCodeUrl,
       isVerified: false,

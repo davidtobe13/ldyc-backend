@@ -74,6 +74,28 @@ router.get('/:id', protect, participantController.getParticipantById);
 
 /**
  * @swagger
+ * /api/participants/{code}:
+ *   get:
+ *     summary: Get participant by registration code
+ *     tags: [Participants]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: code
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Participant details
+ *       404:
+ *         description: Participant not found
+ */
+router.get('/:code', protect, participantController.getParticipantByCode);
+
+/**
+ * @swagger
  * /api/participants/{id}/status:
  *   patch:
  *     summary: Update participant status

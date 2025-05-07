@@ -78,6 +78,31 @@ exports.getParticipantById = async (req, res) => {
     res.status(500).json({ message: 'Internal server error', error: error.message });
   }
 };
+exports.getParticipantByCode = async (req, res) => {
+  try {
+    const { code } = req.params;
+
+    // Find by registrationCode instead of MongoDB _id
+    const participant = await User.findOne({ registrationCode: code }).select('-password');
+
+    if (!participant) {
+      return res.status(404).json({ message: 'Participant not found' });
+    }
+
+    // Optional authorization check
+    if (req.user.userType !== 'admin' && req.user.id !== participant._id.toString()) {
+      return res.status(403).json({ message: 'Not authorized to access this resource' });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: participant
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+};
+
 
 // @desc    Update participant status
 // @route   PATCH /api/participants/:id/status

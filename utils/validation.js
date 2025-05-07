@@ -10,7 +10,7 @@ exports.registrationValidation = Joi.object({
   otherName: Joi.string().allow(''),
   email: Joi.string().email().required(),
   phoneNumber: Joi.string().required(),
-  password: Joi.string().min(6).required(),
+  // password: Joi.string().min(6).required(),
   archdeaconry: Joi.string().required(),
   parish: Joi.string().required(),
   paymentRef: Joi.string().required()
