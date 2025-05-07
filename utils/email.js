@@ -369,7 +369,7 @@ exports.sendRegistrationEmail = async (user) => {
     
     // Email content with inline styled HTML
     const mailOptions = {
-      from: `"Anglican Church Camp" <${process.env.EMAIL_FROM}>`,
+      from: `"LAGOS DIOCESE DIRECTORATE OF YOUTHS" <${process.env.EMAIL_FROM}>`,
       to: email,
       subject: 'Your Registration Confirmation',
       html: `
@@ -378,7 +378,7 @@ exports.sendRegistrationEmail = async (user) => {
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Anglican Church Camp Registration</title>
+          <title>LDYC 2025 Registration</title>
           <style>
             .container {
               padding: 20px;
@@ -446,11 +446,11 @@ exports.sendRegistrationEmail = async (user) => {
         <body>
           <div class="container">
             <div class="header">
-              <h2>ANGLICAN CHURCH CAMP</h2>
+              <h2>LDYC CAMP 2025</h2>
             </div>
             
             <h3>Registration Confirmation</h3>
-            <p>Thank you for registering for the Anglican Church Camp. Your registration has been successfully processed.</p>
+            <p>Thank you for registering for the LYDC Camp. Your registration has been successfully processed.</p>
             
             <div class="registration-info">
               <p>Your Registration Code:</p>
