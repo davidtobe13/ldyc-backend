@@ -111,12 +111,14 @@ exports.registerParticipant = async (req, res) => {
     // const idCardUrl = await generateIDCard(newParticipant);
 
     // Send confirmation email with registration details
-    await sendRegistrationEmail(
-      newParticipant.email, 
-      registrationCode, 
-      qrCode,
-      // idCardUrl
-    );
+    // await sendRegistrationEmail(
+    //   newParticipant.email, 
+    //   registrationCode, 
+    //   qrCode,
+    // );
+
+
+    await sendRegistrationEmail(newParticipant);
 
     res.status(201).json({
       message: "Registration successful",
